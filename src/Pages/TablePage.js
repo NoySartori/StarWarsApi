@@ -7,43 +7,43 @@ export class TablePage extends React.Component {
         this.state = {
             error: null,
             isLoaded: false,
-            vehiclesList: []
+            topVehicle: null
         };
 
         this.swagiApiService = new SwagiApiService();
     }
 
     async componentDidMount() {
-        const response = await this.swagiApiService.getAllVehicles();
-        if (response.message === "ok") {
-            this.setState({
-                vehiclesList: response.results,
-                isLoaded: true
-            });
-        } else {
-            this.setState({
-                error: response.message
-            });
-        }
+        const response = await this.swagiApiService.getSummarizedData();
+
+        this.setState({ topVehicle: response.topVehicle, isLoaded: true });
     }
 
     render() {
-        const { error, isLoaded, vehiclesList } = this.state;
+        const { error, isLoaded, topVehicle } = this.state;
         if (error) {
             return <div>Error: {error.message}</div>;
         } else if (!isLoaded) {
             return <div>Loading...</div>;
         } else {
-            const vehicleElements = [];
-
-            for (let vehicle of vehiclesList) {
-                vehicleElements.push(<li>{vehicle.name}</li>)
-            }
-
             return (
-                <ul>
-                    {vehicleElements}
-                </ul>
+                <table>
+                    <tr>
+                        <td>Vehile name with the largest sum</td>
+                        <td>{topVehicle.name}</td>
+                    </tr>
+                    <tr>
+                        <td>Related home planets and their respective
+                            population</td>
+                        <td>
+                            {JSON.stringify(topVehicle.planetsAndPopulation)}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Related pilot names</td>
+                        <td>{JSON.stringify(topVehicle.pilotNames)}</td>
+                    </tr>
+                </table>
             );
         }
     }
