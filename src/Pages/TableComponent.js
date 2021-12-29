@@ -1,7 +1,7 @@
 import React from 'react';
 import { SwagiApiService } from '../SwagiApiService';
 
-export class TablePage extends React.Component {
+export class TableComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -27,9 +27,10 @@ export class TablePage extends React.Component {
             return <div>Loading...</div>;
         } else {
             return (
+
                 <table>
                     <tr>
-                        <td>Vehile name with the largest sum</td>
+                        <td>Vehicle name with the largest sum</td>
                         <td>{topVehicle.name}</td>
                     </tr>
                     <tr>
@@ -44,6 +45,10 @@ export class TablePage extends React.Component {
                         <td>{JSON.stringify(topVehicle.pilotNames)}</td>
                     </tr>
                 </table>
+
+
+
+
             );
         }
     }

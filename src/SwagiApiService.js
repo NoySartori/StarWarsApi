@@ -133,8 +133,46 @@ export class SwagiApiService {
             }
         }
 
+
+
         return {
             topVehicle: topVehicle
         }
+    }
+
+    async getChartBarData() {
+        const planetsMetadataResponse = await fetch("https://www.swapi.tech/api/planets?page=1&limit=100");
+        const planetsMetadataJson = await planetsMetadataResponse.json();
+
+        if (planetsMetadataJson.message !== 'ok') {
+            throw new Error('Error fetch planets metadata');
+        }
+
+        const relevantPlanetsData = new Set();
+        relevantPlanetsData.add('Tatooine', null);
+        relevantPlanetsData.add('Alderaan', null);
+        relevantPlanetsData.add('Naboo', null);
+        relevantPlanetsData.add('Bespin', null);
+        relevantPlanetsData.add('Endor', null);
+
+
+        const planetsAndPopulationData = [];
+
+        for (let planetMetadata of planetsMetadataJson.results) {
+            if (relevantPlanetsData.has(planetMetadata.name)) {
+                const relevantPlanetDataResponse = await fetch(planetMetadata.url);
+                const relevantPlanetDataDetails = await relevantPlanetDataResponse.json();
+                const planetPopulationSum = relevantPlanetDataDetails.result.properties.population;
+                //relevantPlanetsData.set(planetMetadata.name, planetPopulationSum)
+                planetsAndPopulationData.push({ name: planetMetadata.name, number: planetPopulationSum });
+            }
+        }
+
+
+        return {
+            planetsAndPopulationData: planetsAndPopulationData
+        }
+
+
     }
 }
