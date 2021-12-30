@@ -9,8 +9,10 @@ import { ChartBarComponent } from './Pages/ChartBarComponent';
 function App() {
   return (
 
-    //<TableComponent></TableComponent>
-    <ChartBarComponent></ChartBarComponent>
+    <div>
+      <TableComponent></TableComponent>
+      <ChartBarComponent></ChartBarComponent>
+    </div>
 
   )
 }

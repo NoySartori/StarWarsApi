@@ -31,7 +31,9 @@ export class ChartBarComponent extends React.Component {
             const maxPopulation = Math.max(...planetsAndPopulationData.map(planetAndPopulation => planetAndPopulation.number));
 
             return (
-                <ChartComponent planetsAndPopulations={planetsAndPopulationData} maxPopulation={maxPopulation}></ChartComponent>
+                <div style={{ height: '40vh' }}>
+                    <ChartComponent planetsAndPopulations={planetsAndPopulationData} maxPopulation={maxPopulation}></ChartComponent>
+                </div>
             );
         }
     }

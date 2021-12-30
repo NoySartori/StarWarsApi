@@ -1,6 +1,10 @@
 import React from 'react';
 import { SwagiApiService } from '../SwagiApiService';
 
+const borderStyle = {
+    border: '1px solid black'
+}
+
 export class TableComponent extends React.Component {
     constructor(props) {
         super(props);
@@ -28,21 +32,24 @@ export class TableComponent extends React.Component {
         } else {
             return (
 
-                <table>
-                    <tr>
-                        <td>Vehicle name with the largest sum</td>
-                        <td>{topVehicle.name}</td>
+                <table style={{
+                    border: '1px solid black',
+                    height: '40vh'
+                }}>
+                    <tr style={borderStyle}>
+                        <td style={borderStyle}>Vehicle name with the largest sum</td>
+                        <td style={borderStyle}>{topVehicle.name}</td>
                     </tr>
-                    <tr>
-                        <td>Related home planets and their respective
+                    <tr style={borderStyle}>
+                        <td style={borderStyle}>Related home planets and their respective
                             population</td>
-                        <td>
+                        <td style={borderStyle}>
                             {JSON.stringify(topVehicle.planetsAndPopulation)}
                         </td>
                     </tr>
-                    <tr>
-                        <td>Related pilot names</td>
-                        <td>{JSON.stringify(topVehicle.pilotNames)}</td>
+                    <tr style={borderStyle}>
+                        <td style={borderStyle}>Related pilot names</td>
+                        <td style={borderStyle}>{JSON.stringify(topVehicle.pilotNames)}</td>
                     </tr>
                 </table>
 
