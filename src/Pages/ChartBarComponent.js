@@ -28,24 +28,30 @@ export class ChartBarComponent extends React.Component {
         } else if (!isLoaded) {
             return <div>ChartBar...</div>;
         } else {
+            const barWidth = 50
+            const barMargin = 30;
+
+            const maxPopulation = Math.max(...planetsAndPopulationData.map(planetAndPopulation => planetAndPopulation.number));
+            const chartHeight = maxPopulation + 20;
+            const chartWidth = planetsAndPopulationData.length * (barWidth + barMargin);
+
             return (
                 <>
 
-                    <Chart height={500} width={500}>
-                        {planetsAndPopulationData.map((planetsAndPopulationData, index) => {
-                            const barHeight = planetsAndPopulationData.number;
-                            const barWidth = 50;
-                            const barMargin = 30;
+                    <Chart height={chartHeight} width={chartWidth}>
+                        {planetsAndPopulationData.map((planetAndPopulation, index) => {
 
+                            const barHeight = planetAndPopulation.number;
 
                             return (
                                 <Bar
+                                    key={planetAndPopulation.name}
                                     x={index * (barWidth + barMargin)}
-                                    y={500 - barHeight}
+                                    y={chartHeight - barHeight}
                                     width={barWidth}
-                                    height={500}
-                                    planetName={planetsAndPopulationData.name}
-                                    planetPopulationSum={planetsAndPopulationData.number}
+                                    height={barHeight}
+                                    planetName={planetAndPopulation.name}
+                                    planetPopulationSum={planetAndPopulation.number}
                                 />
                             );
                         })}
